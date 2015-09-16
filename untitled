@@ -1,0 +1,13 @@
+var fs = require('fs');
+var path = require('path')
+
+function moduleFunction(directoryName, fileExtension, callbackFunction) {
+  readfs.readdir(directoryName, function (err, list){
+    list.forEach(function (file) {
+      if (path.extname(file) === "." + fileExtension)
+        console.log(file);
+    })
+  });
+}
+
+module.exports = moduleFunction;
