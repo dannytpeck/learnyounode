@@ -1,5 +1,13 @@
-var mymodule = require('./mymodule.js');
+var mymodule = require('./mymodule.js'),
+    dirName = process.argv[2],
+    ext = process.argv[3];
 
-mymodule(process.argv[2], process.argv[3], function(err, data){
-  console.log(data);
+mymodule(dirName, ext, function(err, files){
+  if (err) {
+    throw err;
+  }
+
+  files.forEach(function (file) {
+    console.log(file);
+  });
 });
