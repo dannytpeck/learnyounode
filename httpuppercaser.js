@@ -1,19 +1,13 @@
 var http = require('http')
-var fs = require('fs')
 var map = require('through2-map')
 
 var server = http.createServer(function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });  
+  if (req.method != 'POST')
+    return res.end("POST only plz\n")
 
-  if(req.method === "POST") {
-    req.on('data', function(data) {
-      data.pipe(map(function (chunk) {
-        return chunk.toString().split('').reverse().join('')
-      })).pipe(res)
-    });
-  }
-
+  req.pipe(map(function (chunk) {
+    return chunk.toString().toUpperCase();
+  })).pipe(res)
 })
 
-server.listen(process.argv[2])
-
+server.listen(Number(process.argv[2]))
